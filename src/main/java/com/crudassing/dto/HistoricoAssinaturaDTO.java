@@ -2,8 +2,9 @@ package com.crudassing.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class HistoricoAssinaturaDTO {
 	private String tipo;
 	@NotNull(message = "Deve informar o ID da assinatura")
 	private Integer assinatura;
-	@Column(name = "criado_em")
+	@JsonProperty("criado_em")
 	private Date criadoEm;
 
 	@Override

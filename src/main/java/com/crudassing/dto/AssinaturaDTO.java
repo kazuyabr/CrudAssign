@@ -3,6 +3,7 @@ package com.crudassing.dto;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -12,8 +13,10 @@ public class AssinaturaDTO {
 	private Integer id;
 	private Integer status;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt-BR", timezone = "Brazil/East")
+	@JsonProperty("criado_em")
 	private Date criadoEm;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt-BR", timezone = "Brazil/East")
+	@JsonProperty("atualizado_em")
 	private Date atualizadoEm;
 
 	public AssinaturaDTO(Integer id, Integer status, Date criadoEm, Date atualizadoEm) {
