@@ -37,4 +37,21 @@ public class Assinatura implements Serializable {
 	@Column(name = "atualizado_em")
 	private Date atualizadoEm;
 
+	public Assinatura(Status status, @NotNull Date criadoEm, @NotNull Date atualizadoEm) {
+		super();
+		this.status = status;
+		this.criadoEm = criadoEm;
+		this.atualizadoEm = atualizadoEm;
+	}
+
+	public Assinatura() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Assinatura [id=" + id + ", status=" + status + ", criadoEm=" + criadoEm + ", atualizadoEm="
+				+ atualizadoEm + "]";
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.crudassing.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,12 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "historico_assinatura")
-public class HistoricoAssinatura {
+public class HistoricoAssinatura implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7286362719703008933L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +36,22 @@ public class HistoricoAssinatura {
 	private Assinatura assinatura;
 	@Column(name = "criado_em")
 	private Date criadoEm;
+
+	public HistoricoAssinatura(@NotNull String tipo, Assinatura assinatura, Date criadoEm) {
+		super();
+		this.tipo = tipo;
+		this.assinatura = assinatura;
+		this.criadoEm = criadoEm;
+	}
+
+	public HistoricoAssinatura() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "HistoricoAssinatura [id=" + id + ", tipo=" + tipo + ", assinatura=" + assinatura + ", criadoEm="
+				+ criadoEm + "]";
+	}
 
 }

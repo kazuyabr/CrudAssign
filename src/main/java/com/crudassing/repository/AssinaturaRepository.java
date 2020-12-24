@@ -17,7 +17,7 @@ public interface AssinaturaRepository extends JpaRepository<Assinatura, Integer>
 
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	@Query(value = "update assinatura set status_id = 1, atualizado_em = CURRENT_TIMESTAMP() where id = :id", nativeQuery = true)
-	Assinatura cancelar(@Param("id") Integer id);
+	@Query(value = "update assinatura set status_id = 2, atualizado_em = CURRENT_TIMESTAMP() where id = :id", nativeQuery = true)
+	void cancelar(@Param("id") Integer id);
 
 }

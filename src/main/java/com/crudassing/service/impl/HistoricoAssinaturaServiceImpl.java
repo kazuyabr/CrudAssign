@@ -32,8 +32,13 @@ public class HistoricoAssinaturaServiceImpl implements HistoricoService {
 	}
 
 	@Override
-	public HistoricoAssinatura updateHistorico(Integer id, String tipo) {
-		return repository.update(id, tipo);
+	public void updateHistorico(Integer id, String tipo) {
+		repository.update(id, tipo);
+	}
+
+	@Override
+	public void deleteHistorico(Integer id) {
+		repository.deleteById(id);
 	}
 
 }

@@ -2,6 +2,7 @@ package com.crudassing.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -52,21 +53,21 @@ public class AssinaturaController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Response<AssinaturaDTO>> getAll(BindingResult result) {
+	public ResponseEntity<Response<AssinaturaDTO>> getAll() {
 
 		Response<AssinaturaDTO> response = new Response<AssinaturaDTO>();
-
-		if (result.hasErrors()) {
-			result.getAllErrors().forEach(e -> response.getErrors().add(e.getDefaultMessage()));
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-		}
 
 		List<Assinatura> listAssinatura = service.getAll();
 
 		listAssinatura.forEach(assign -> System.out.println(assign.toString()));
 
-		@SuppressWarnings("static-access")
-		List<AssinaturaDTO> convertedDTO = response.convertList(listAssinatura, AssinaturaDTO.class);
+		List<AssinaturaDTO> convertedDTO = new ArrayList<AssinaturaDTO>();
+
+		listAssinatura.forEach(item -> {
+			AssinaturaDTO assignDTO = new AssinaturaDTO(item.getId(), item.getStatus().getId(), item.getCriadoEm(),
+					item.getAtualizadoEm());
+			convertedDTO.add(assignDTO);
+		});
 
 		System.out.println("Teste de conversão Generica: " + convertedDTO);
 
@@ -76,14 +77,7 @@ public class AssinaturaController {
 	}
 
 	@PutMapping("{id}")
-	public ResponseEntity<Void> cancelAssinatura(@PathVariable("id") Integer id, BindingResult result) {
-
-		Response<AssinaturaDTO> response = new Response<AssinaturaDTO>();
-
-		if (result.hasErrors()) {
-			result.getAllErrors().forEach(e -> response.getErrors().add(e.getDefaultMessage()));
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
+	public ResponseEntity<Void> cancelAssinatura(@PathVariable("id") Integer id) {
 
 		service.cancelById(id);
 

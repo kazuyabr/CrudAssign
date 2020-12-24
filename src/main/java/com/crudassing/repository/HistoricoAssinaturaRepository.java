@@ -14,6 +14,6 @@ public interface HistoricoAssinaturaRepository extends JpaRepository<HistoricoAs
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query(value = "update historico_assinatura ha set ha.tipo = :tipo where ha.id = :id", nativeQuery = true)
-	HistoricoAssinatura update(@Param("id") Integer id, @Param("tipo") String tipo);
+	void update(@Param("id") Integer id, @Param("tipo") String tipo);
 
 }

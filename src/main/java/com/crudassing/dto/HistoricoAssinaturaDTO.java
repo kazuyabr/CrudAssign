@@ -24,16 +24,17 @@ public class HistoricoAssinaturaDTO {
 				+ criadoEm + "]";
 	}
 
-	public HistoricoAssinaturaDTO(@NotNull(message = "Deve informar o tipo deste histórico") String tipo,
+	public HistoricoAssinaturaDTO() {
+		super();
+	}
+
+	public HistoricoAssinaturaDTO(Integer id, @NotNull(message = "Deve informar o tipo deste histórico") String tipo,
 			@NotNull(message = "Deve informar o ID da assinatura") Integer assinatura, Date criadoEm) {
 		super();
+		this.id = id;
 		this.tipo = tipo;
 		this.assinatura = assinatura;
 		this.criadoEm = criadoEm;
-	}
-
-	public HistoricoAssinaturaDTO() {
-		super();
 	}
 
 }

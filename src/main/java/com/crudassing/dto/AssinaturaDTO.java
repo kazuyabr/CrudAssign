@@ -26,7 +26,6 @@ public class AssinaturaDTO {
 
 	public AssinaturaDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.crudassing.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,22 +54,21 @@ public class HistoricoAssinaturaController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Response<HistoricoAssinaturaDTO>> getAll(BindingResult result) {
+	public ResponseEntity<Response<HistoricoAssinaturaDTO>> getAll() {
 
 		Response<HistoricoAssinaturaDTO> response = new Response<HistoricoAssinaturaDTO>();
-
-		if (result.hasErrors()) {
-			result.getAllErrors().forEach(e -> response.getErrors().add(e.getDefaultMessage()));
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-		}
 
 		List<HistoricoAssinatura> listHistoricoAssinatura = service.getAll();
 
 		listHistoricoAssinatura.forEach(assign -> System.out.println(assign.toString()));
 
-		@SuppressWarnings("static-access")
-		List<HistoricoAssinaturaDTO> convertedDTO = response.convertList(listHistoricoAssinatura,
-				HistoricoAssinaturaDTO.class);
+		List<HistoricoAssinaturaDTO> convertedDTO = new ArrayList<HistoricoAssinaturaDTO>();
+
+		listHistoricoAssinatura.forEach(item -> {
+			HistoricoAssinaturaDTO historyDTO = new HistoricoAssinaturaDTO(item.getId(), item.getTipo(),
+					item.getAssinatura().getId(), item.getCriadoEm());
+			convertedDTO.add(historyDTO);
+		});
 
 		System.out.println("Teste de conversão Generica: " + convertedDTO);
 
@@ -76,19 +78,29 @@ public class HistoricoAssinaturaController {
 	}
 
 	@PutMapping("{id}")
-	public ResponseEntity<Response<HistoricoAssinaturaDTO>> updateHistorico(@RequestBody HistoricoAssinatura entity,
+	public ResponseEntity<Void> updateHistorico(@PathVariable("id") Integer id, @RequestBody HistoricoAssinatura entity,
 			BindingResult result) {
 
 		Response<HistoricoAssinaturaDTO> response = new Response<HistoricoAssinaturaDTO>();
 
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(e -> response.getErrors().add(e.getDefaultMessage()));
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 
-		service.save(entity);
+		service.updateHistorico(id, entity.getTipo());
 
-		return ResponseEntity.ok().body(response);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@DeleteMapping("{id}")
+	public ResponseEntity<Void> deleteHistorico(@PathVariable("id") Integer id) {
+
+		Response<HistoricoAssinaturaDTO> response = new Response<HistoricoAssinaturaDTO>();
+
+		service.deleteHistorico(id);
+
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	private HistoricoAssinatura convertDtoToEntity(HistoricoAssinaturaDTO dto) {

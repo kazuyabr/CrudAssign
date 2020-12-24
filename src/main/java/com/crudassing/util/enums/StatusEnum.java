@@ -1,7 +1,7 @@
 package com.crudassing.util.enums;
 
 public enum StatusEnum {
-	ATIVA(0), CANCELADA(1);
+	ATIVA(1), CANCELADA(2);
 
 	private final Integer value;
 

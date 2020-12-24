@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.crudassing.controller","c":"StatusController","l":"getAll()"},{"p":"com.crudassing.controller","c":"StatusController","l":"StatusController()","u":"%3Cinit%3E()"}];updateSearchResults();

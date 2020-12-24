@@ -30,4 +30,19 @@ public class Status implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StatusEnum tipo;
 
+	public Status(Integer id, @NotNull StatusEnum tipo) {
+		super();
+		this.id = id;
+		this.tipo = tipo;
+	}
+
+	public Status() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Status [id=" + id + ", tipo=" + tipo + "]";
+	}
+
 }

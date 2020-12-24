@@ -13,6 +13,8 @@ public interface HistoricoService {
 
 	Optional<HistoricoAssinatura> getById(Integer id);
 
-	HistoricoAssinatura updateHistorico(Integer id, String tipo);
+	void updateHistorico(Integer id, String tipo);
+
+	void deleteHistorico(Integer id);
 
 }
