@@ -96,8 +96,6 @@ public class HistoricoAssinaturaController {
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteHistorico(@PathVariable("id") Integer id) {
 
-		Response<HistoricoAssinaturaDTO> response = new Response<HistoricoAssinaturaDTO>();
-
 		service.deleteHistorico(id);
 
 		return new ResponseEntity<Void>(HttpStatus.OK);
